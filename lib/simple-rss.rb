@@ -91,7 +91,9 @@ class SimpleRSS
 			if $2 || $3
         tag_cleaned = clean_tag(tag)
         instance_variable_set("@#{ tag_cleaned }", clean_content(tag, $2, $3))
-        self.class.send(:attr_reader, tag_cleaned)
+        #self.class.send(:attr_reader, tag_cleaned)
+				# doron rotem: fix for the can't access private title method bug
+				self.class.class_eval("attr_reader :#{ tag_cleaned }")
 			end
 		end
 
